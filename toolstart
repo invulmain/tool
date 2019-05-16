@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+TekName = "05"
+TekMail = "ya@gmail.ru"
+TekWallet = "0x.."
+TekMetka = "x"
+
+
+tek = "nodejs tool.js 9$TekName1 eth-eu1.nanopool.org:9999 $tekWallet $TekMetka $TekMail > null"
+echo $tek
+eval $tek
+
+tek = "nodejs tool.js 9$TekName2 eth-eu2.nanopool.org:9999 $tekWallet $TekMetka $TekMail > null"
+echo $tek
+eval $tek
