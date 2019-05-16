@@ -6,11 +6,11 @@ mail="ya@gmail.ru"
 metka="x"
 
 
-tek="nodejs tool.js 9"$name"1 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail
+tek="nohup nodejs /home/user/tool/tool.js 9"$name"1 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
 echo $tek
 eval $tek
 
-tek="nodejs tool.js 9"$name"2 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail"
+tek="nohup nodejs /home/user/tool/tool.js 9"$name"2 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
 echo $tek
-#eval $tek
+eval $tek
 
