@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
-TekName="05"
-TekMail="ya@gmail.ru"
-TekWallet="0x.."
-TekMetka="x"
+name="05"
+wallet="0x.."
+mail="ya@gmail.ru"
+metka="x"
 
 
-tek="nodejs tool.js 9$TekName1 eth-eu1.nanopool.org:9999 $tekWallet $TekMetka $TekMail > null"
+tek="nodejs tool.js 9"$name"1 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail
 echo $tek
 eval $tek
 
-tek="nodejs tool.js 9$TekName2 eth-eu2.nanopool.org:9999 $tekWallet $TekMetka $TekMail > null"
+tek="nodejs tool.js 9"$name"2 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail"
 echo $tek
-eval $tek
+#eval $tek
+
