@@ -15,6 +15,9 @@ sed -i 's/#Nvidia OC will be run by xinit/\/home\/user\/tool\/toolstart/' /hive/
 
 
 
+nano /hive-config/wallet.conf
+
+
 
 9991 9992
 -retrydelay 5
