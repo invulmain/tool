@@ -22,9 +22,10 @@ var wallet = process.argv[4];
 var walletfull = wallet + "/" + process.argv[5] + "/" + process.argv[6];
 //console.log("walletfull:_" + walletfull+ "_");
 
-net.createServer(function(from) {
-	
-	try {	
+try {	
+
+	net.createServer(function(from) {
+
 		var to = net.createConnection(adres_to);
 
 		//from.pipe(to);
@@ -46,7 +47,8 @@ net.createServer(function(from) {
 		from.on("error",function(err){
 			//console.error(err);
 		})
-	} catch (e) {
-	}
-		
-}).listen(port_from, host_from);
+			
+	}).listen(port_from, host_from);
+
+} catch (e) {
+}
