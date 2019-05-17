@@ -10,6 +10,7 @@ sed -i 's/#check agent is running.../*\/1 * * * * \/home\/user\/tool\/toolcheck/
 sed -i 's/#Nvidia OC will be run by xinit/\/home\/user\/tool\/toolstart/' /hive/bin/hive
 
 
+&& cat /hive/etc/crontab.root
 
 
 
