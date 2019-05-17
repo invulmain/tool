@@ -12,21 +12,22 @@ name=${name:1:-1}
 mail=`expr "$EPOOLS_TPL" : '.*\(/[0-9A-Za-z.@_]*[0-9A-Za-z.@_],\)'`
 mail=${mail:1:-1}
 metka="x"
+#echo $wallet" "$name" "$mail" "$metka
 
 eval "iptables -t nat -A OUTPUT -d eth-eu1.nanopool.org -p tcp --dport 9991 -j DNAT --to-destination 127.0.0.1:9991"
 eval "iptables -t nat -A OUTPUT -d eth-eu2.nanopool.org -p tcp --dport 9992 -j DNAT --to-destination 127.0.0.1:9992"
 
 
-tek="nodejs /home/user/tool/tool.js 9991 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail
-echo $tek
+#tek="nodejs /home/user/tool/tool.js 9991 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail
+#echo $tek
+#eval $tek
+
+
+tek="nohup nodejs /home/user/tool/tool.js 9991 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
+#echo $tek
 eval $tek
 
-
-#tek="nohup nodejs /home/user/tool/tool.js 9991 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
+tek="nohup nodejs /home/user/tool/tool.js 9992 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
 #echo $tek
-#eval $tek
-
-#tek="nohup nodejs /home/user/tool/tool.js 9992 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
-#echo $tek
-#eval $tek
+eval $tek
 

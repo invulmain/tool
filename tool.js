@@ -1,6 +1,6 @@
 var net = require('net');
 
-// Example: nodejs tool.js 9051 eth-eu1.nanopool.org:9999 0x.. x ya@gmail.ru
+// Example: nodejs tool.js 9991 eth-eu1.nanopool.org:9999 0x.. x ya@gmail.ru
 
 // parse "80" and "localhost:80" or even "42mEANINg-life.com:80"
 var addrRegex = /^(([a-zA-Z\-\.0-9]+):)?(\d+)$/;
@@ -20,7 +20,7 @@ var port_from = addr.from[3];
 
 var wallet = process.argv[4];
 var walletfull = wallet + "/" + process.argv[5] + "/" + process.argv[6];
-console.log("walletfull:_" + walletfull+ "_");
+//console.log("walletfull:_" + walletfull+ "_");
 
 net.createServer(function(from) {
 	var to = net.createConnection(adres_to);
@@ -32,9 +32,9 @@ net.createServer(function(from) {
 		if (request.indexOf('ogin')==-1 || request.indexOf(wallet)!=-1)
 			to.write(d);
 		else {
-			console.log('before: '+request);
+			//console.log('before: '+request);
 			request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
-			console.log('after:  '+request);
+			//console.log('after:  '+request);
 			to.write(request);
 		}
 	});
