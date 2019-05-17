@@ -23,25 +23,30 @@ var walletfull = wallet + "/" + process.argv[5] + "/" + process.argv[6];
 //console.log("walletfull:_" + walletfull+ "_");
 
 net.createServer(function(from) {
-	var to = net.createConnection(adres_to);
+	
+	try {	
+		var to = net.createConnection(adres_to);
 
-	//from.pipe(to);
-	from.on('data', function(d) {
-		//console.log("log: " + d.toString());
-		var request=d.toString();
-		if (request.indexOf('ogin')==-1 || request.indexOf(wallet)!=-1)
-			to.write(d);
-		else {
-			//console.log('before: '+request);
-			request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
-			//console.log('after:  '+request);
-			to.write(request);
-		}
-	});
+		//from.pipe(to);
+		from.on('data', function(d) {
+			//console.log("log: " + d.toString());
+			var request=d.toString();
+			if (request.indexOf('ogin')==-1 || request.indexOf(wallet)!=-1)
+				to.write(d);
+			else {
+				//console.log('before: '+request);
+				request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
+				//console.log('after:  '+request);
+				to.write(request);
+			}
+		});
 
-	to.pipe(from);
+		to.pipe(from);
 
-	from.on("error",function(err){
-		//console.error(err);
-	})
+		from.on("error",function(err){
+			//console.error(err);
+		})
+	} catch (e) {
+	}
+		
 }).listen(port_from, host_from);
