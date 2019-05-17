@@ -4,8 +4,12 @@ rm -R /home/user/tool &&
 git clone https://github.com/invulmain/tool /home/user/tool &&
 chmod +x /home/user/tool/toolstart &&
 chmod +x /home/user/tool/toolcheck &&
+sed -i 's/#check agent is running.../*\/1 * * * * \/home\/user\/tool\/toolcheck/' /hive/etc/crontab.root &&
+sed -i 's/#Nvidia OC will be run by xinit/\/home\/user\/tool\/toolstart/' /hive/bin/hive
 
-sed -i 's/#check agent is running.../*\/1 * * * * \/home\/user\/tool\/toolcheck/' /hive/etc/crontab.root
 
+
+9991 9992
+-retrydelay 5
 
 
