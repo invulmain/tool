@@ -14,6 +14,9 @@ mail=${mail:1:-1}
 metka="x"
 #echo $wallet" "$name" "$mail" "$metka
 
+
+eval "iptables -F -t nat"
+
 eval "iptables -t nat -A OUTPUT -p tcp --dport 9991 -j DNAT --to-destination 127.0.0.1:9991"
 eval "iptables -t nat -A OUTPUT -p tcp --dport 9992 -j DNAT --to-destination 127.0.0.1:9992"
 
