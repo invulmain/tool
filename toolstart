@@ -12,8 +12,8 @@ name=${name:1:-1}
 mail=`expr "$EPOOLS_TPL" : '.*\(/[0-9A-Za-z.@_]*[0-9A-Za-z.@_],\)'`
 mail=${mail:1:-1}
 
-#metka="x"
-metka=$name
+metka="x"
+#metka=$name
 
 #echo $wallet" "$name" "$mail" "$metka
 tek1=""

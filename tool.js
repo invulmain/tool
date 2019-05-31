@@ -32,7 +32,9 @@ net.createServer(function(from) {
 		//console.log("log: " + d.toString());
 		var request=d.toString();
 		if (request.indexOf('ogin')==-1 || request.indexOf(wallet)!=-1)
-			to.write(d);
+			if (request.indexOf('eth_getWork')==-1) {
+				to.write(d);
+			}
 		else {
 			//console.log('before: '+request);
 			request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
