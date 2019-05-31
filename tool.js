@@ -29,17 +29,23 @@ net.createServer(function(from) {
 
 	//from.pipe(to);
 	from.on('data', function(d) {
-		//console.log("log: " + d.toString());
 		var request=d.toString();
-		if (request.indexOf('ogin')==-1 || request.indexOf(wallet)!=-1)
+		if (request.indexOf('ogin')==-1) {
 			if (request.indexOf('eth_getWork')==-1) {
 				to.write(d);
+				//console.log("A  " + request);
 			}
-		else {
-			//console.log('before: '+request);
-			request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
-			//console.log('after:  '+request);
-			to.write(request);
+		} else {
+			if (request.indexOf(wallet)==-1) {
+				//console.log('before: '+request);
+				request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
+				//console.log('after:  '+request);
+				to.write(request);
+				//console.log("A2 " + request);
+			} else {
+				to.write(d);
+				//console.log("A1 " + request);
+			}
 		}
 	});
 
