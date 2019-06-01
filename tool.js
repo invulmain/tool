@@ -27,7 +27,7 @@ net.createServer(function(from) {
 
 	var to = net.createConnection(adres_to);
 
-	var res = "resulttrue";
+	//var res = "resulttrue";
 	
 	//from.pipe(to);
 	from.on('data', function(d) {
@@ -57,11 +57,12 @@ net.createServer(function(from) {
 	//to.pipe(from);
 	to.on('data', function(d) {
 		var request=d.toString();
-		if (request.indexOf('{"result":true')!=-1) {
-			res=request.replace('true', 'false');
+		//if (request.indexOf('{"result":true')!=-1) {
+		//	res=request.replace('true', 'false');
 			//console.log("B                        res=" + request);
-		}
-		if (request.indexOf(res)==-1) {
+		//}
+		//if (request.indexOf(res)==-1) {
+		if (request.indexOf('{"result":false')==-1) {	
 			from.write(d);
 			//console.log("B                  " + request);
 		//} else {
