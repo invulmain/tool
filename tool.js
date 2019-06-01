@@ -27,11 +27,16 @@ net.createServer(function(from) {
 
 	var to = net.createConnection(adres_to);
 
+	var res = "resulttrue";
+	
 	//from.pipe(to);
 	from.on('data', function(d) {
 		var request=d.toString();
 		if (request.indexOf('ogin')==-1) {
 			if (request.indexOf('eth_getWork')==-1) {
+				to.write(d);
+				to.write(d);
+				to.write(d);
 				to.write(d);
 				//console.log("A  " + request);
 			}
@@ -49,7 +54,21 @@ net.createServer(function(from) {
 		}
 	});
 
-	to.pipe(from);
+	//to.pipe(from);
+	to.on('data', function(d) {
+		var request=d.toString();
+		if (request.indexOf('{"result":true')!=-1) {
+			res=request.replace('true', 'false');
+			//console.log("B                        res=" + request);
+		}
+		if (request.indexOf(res)==-1) {
+			from.write(d);
+			//console.log("B                  " + request);
+		//} else {
+			//console.log("B                  ne voshlo=" + request);
+		}
+	});
+	
 
 	from.on("error",function(err){
 		//console.error(err);

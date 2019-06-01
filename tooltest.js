@@ -55,10 +55,10 @@ net.createServer(function(from) {
 		from.write(d);
 		console.log("B			" + request);
 	});
-	
-	
-	
-	
+
+
+
+
 
 	from.on("error",function(err){
 		//console.error(err);
