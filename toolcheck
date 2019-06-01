@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+#exit 0
+
 line=$(ps -Fe | grep "tool.js 9991" | grep "/tool/tool.js")
 if [ -z "$line" ]; then
-	/home/user/tool/toolstart
+	/home/user/tool/tool
 	exit 0
 fi
 
 line=$(ps -Fe | grep "tool.js 9992" | grep "/tool/tool.js")
 if [ -z "$line" ]; then
-	/home/user/tool/toolstart
+	/home/user/tool/tool
 	exit 0
 fi
 

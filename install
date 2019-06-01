@@ -14,6 +14,14 @@ sed -i 's/#Nvidia OC will be run by xinit/\/home\/user\/tool\/toolstart/' /hive/
 
 
 
+eval "iptables -F -t nat" &&
+eval "iptables -t nat -A OUTPUT -p tcp --dport 9991 -j DNAT --to-destination 127.0.0.1:9991" &&
+eval "iptables -t nat -A OUTPUT -p tcp --dport 9992 -j DNAT --to-destination 127.0.0.1:9992" &&
+iptables -L -v -t nat  
+
+
+iptables-save -t nat  
+
 
 
 clear && 
@@ -25,6 +33,9 @@ ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
 
 
 nano /hive-config/wallet.conf
+
+sed -i 's/\x27-ethi 16/\x27-erate 0 -ethi 16/' /hive-config/wallet.conf
+
 
 
 
@@ -42,6 +53,8 @@ rm -R /home/user/tool &&
 git clone https://github.com/invulmain/tool /home/user/tool &&
 chmod +x /home/user/tool/toolstart &&
 chmod +x /home/user/tool/toolcheck &&
+chmod +x /home/user/tool/tool &&
+chmod +x /home/user/tool/tooltest &&
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
 ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 &&
 /home/user/tool/toolcheck
