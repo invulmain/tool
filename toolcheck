@@ -2,16 +2,19 @@
 
 #exit 0
 
-line=$(ps -Fe | grep "tool.js 9991" | grep "/tool/tool.js")
-if [ -z "$line" ]; then
-	/home/user/tool/tool
-	exit 0
-fi
+for ((i=1; i < 13; i++)) do
 
-line=$(ps -Fe | grep "tool.js 9992" | grep "/tool/tool.js")
-if [ -z "$line" ]; then
-	/home/user/tool/tool
-	exit 0
-fi
+	line=$(ps -Fe | grep "tool.js 9991" | grep "/tool/tool.js")
+	if [ -z "$line" ]; then
+		/home/user/tool/tool
+	else
+		line1=$(ps -Fe | grep "tool.js 9992" | grep "/tool/tool.js")
+		if [ -z "$line1" ]; then
+			/home/user/tool/tool
+		fi
+	fi
+
+	sleep 5
+done
 
 exit 0
