@@ -29,7 +29,7 @@ net.createServer(function(from) {
 
 	from.setNoDelay();
 	to.setNoDelay();
-	
+
 	//from.pipe(to);
 	from.on('data', function(d) {
 		var request=d.toString();
@@ -76,16 +76,15 @@ net.createServer(function(from) {
 	//to.pipe(from);
 	to.on('data', function(d) {
 		var request=d.toString();
-			if (request.indexOf('{"result":')==-1) {
-				from.write(d);
-				//console.log("B1				" + request);
-			} else {
-				if (request.indexOf('true')!=-1) {
-					from.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-					//console.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-				}
-				//console.log("B3				" + request)
+		if (request.indexOf('{"result":')==-1) {
+			from.write(d);
+			//console.log("B1				" + request);
+		} else {
+			if (request.indexOf('true')!=-1) {
+				from.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
+				//console.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
 			}
+			//console.log("B3				" + request)
 		}
 	});
 
