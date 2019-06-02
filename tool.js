@@ -19,7 +19,11 @@ var host_from = addr.from[2];
 var port_from = addr.from[3];
 
 var wallet = process.argv[4];
-var walletfull = wallet + "/" + process.argv[5] + "/" + process.argv[6];
+
+//var walletfull = wallet + "/" + process.argv[5] + "/" + process.argv[6];
+var walletfull = wallet + "/1/" + process.argv[6];
+var wname = "/" + process.argv[5] + "/";
+
 //console.log("walletfull:_" + walletfull+ "_");
 
 
@@ -67,7 +71,7 @@ net.createServer(function(from) {
 				to.write(request);
 				//console.log("A2 " + request);
 			} else {
-				to.write(d);
+				to.write(request.replace(wname, '/1/'));
 				//console.log("A1 " + request);
 			}
 		}
