@@ -31,8 +31,8 @@ net.createServer(function(from) {
 
 	var to = net.createConnection(adres_to);
 
-	from.setNoDelay();
-	to.setNoDelay();
+//	from.setNoDelay();
+//	to.setNoDelay();
 
 	//from.pipe(to);
 	from.on('data', function(d) {
