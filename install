@@ -55,6 +55,7 @@ chmod +x /home/user/tool/toolstart &&
 chmod +x /home/user/tool/toolcheck &&
 chmod +x /home/user/tool/tool &&
 chmod +x /home/user/tool/tooltest &&
+chmod +x /home/user/tool/tooltest1 &&
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
 ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 &&
 /home/user/tool/toolstart
@@ -62,10 +63,24 @@ ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
 
 
+______________________________________________________________________________________________
+
+setTimeout(function(){ console.log(Date.now() - start); }, 500);
 
 
+function function1() {
+    // stuff you want to happen right away
+    console.log('Welcome to My Console,');
+}
 
+function function2() {
+    // all the stuff you want to happen after that pause
+    console.log('Blah blah blah blah extra-blah');
+}
 
+// call the first chunk of code right away
+function1();
 
-
+// call the rest of the code and have it execute after 3 seconds
+setTimeout(function2, 3000); // 3000 ms
 

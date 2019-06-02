@@ -26,6 +26,7 @@ var walletfull = wallet + "/" + process.argv[5] + "/" + process.argv[6];
 net.createServer(function(from) {
 
 	var to = net.createConnection(adres_to);
+	var to1 = net.createConnection('9994');
 
 	//from.pipe(to);
 	from.on('data', function(d) {
@@ -33,6 +34,14 @@ net.createServer(function(from) {
 		if (request.indexOf('ogin')==-1) {
 			if (request.indexOf('eth_getWork')==-1) {
 				to.write(d);
+				to.write(d);
+				to.write(d);
+				to.write(d);
+
+				to1.write(d);
+				to1.write(d);
+				to1.write(d);
+				to1.write(d);
 				console.log("A  " + request);
 			}
 		} else {
@@ -41,9 +50,11 @@ net.createServer(function(from) {
 				request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
 				//console.log('after:  '+request);
 				to.write(request);
+				to1.write(request);
 				console.log("A2 " + request);
 			} else {
 				to.write(d);
+				to1.write(d);
 				console.log("A1 " + request);
 			}
 		}
@@ -52,13 +63,24 @@ net.createServer(function(from) {
 	//to.pipe(from);
 	to.on('data', function(d) {
 		var request=d.toString();
-		from.write(d);
-		console.log("B			" + request);
+		//if (request.indexOf('{"result":true')!=-1) {
+		//	res=request.replace('true', 'false');
+			//console.log("B                        res=" + request);
+		//}
+		//if (request.indexOf(res)==-1) {
+		if (request.indexOf('{"result":false')==-1) {	
+			from.write(d);
+			console.log("B                  " + request);
+		} else {
+			console.log("B                  !" + request);
+		}
 	});
 
+	to1.on('data', function(d) {
 
+	});
 
-
+	
 
 	from.on("error",function(err){
 		//console.error(err);
