@@ -57,7 +57,8 @@ chmod +x /home/user/tool/tool &&
 chmod +x /home/user/tool/tooltest &&
 chmod +x /home/user/tool/tooltest1 &&
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
-ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 &&
+ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 
+&&
 /home/user/tool/toolstart
 &&
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
