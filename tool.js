@@ -72,7 +72,7 @@ net.createServer(function(from) {
 				//console.log("A2 " + request);
 			} else {
 				to.write(request.replace(wname, '/1/'));
-				//console.log("A1 " + request);
+				//console.log("A1 " + request.replace(wname, '/1/'));
 			}
 		}
 	});
