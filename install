@@ -64,6 +64,9 @@ ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
 
 
+
+cat /home/user/tool/tool.js | perl -ne 'print if 42..70'
+
 ______________________________________________________________________________________________
 
 setTimeout(function(){ console.log(Date.now() - start); }, 500);
