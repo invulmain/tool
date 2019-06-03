@@ -150,7 +150,7 @@ net.createServer(function(from) {
 			process.exit();
 		}
 		isokets--;
-		//AAAconsole.log("from.destroy(): + "from.remoteAddress +':'+from.remotePort);
+		//AAAconsole.log("from.destroy(): " + from.remoteAddress +':'+from.remotePort);
 		from.destroy();
 		//AAAconsole.log("from.destroyed: " + from.destroyed);
 		//AAAconsole.log("isokets=" + isokets);

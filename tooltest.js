@@ -150,7 +150,7 @@ net.createServer(function(from) {
 			process.exit();
 		}
 		isokets--;
-		console.log("from.destroy(): + "from.remoteAddress +':'+from.remotePort);
+		console.log("from.destroy(): " + from.remoteAddress +':'+from.remotePort);
 		from.destroy();
 		console.log("from.destroyed: " + from.destroyed);
 		console.log("isokets=" + isokets);
