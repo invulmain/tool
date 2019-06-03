@@ -56,7 +56,9 @@ server.on('connection', function(from) {
 	from.on('data', function(d) {
 		var request=d.toString();
 		if (request.indexOf('ogin')==-1) {
-			if (request.indexOf('eth_getWork')==-1) {
+			if (request.indexOf('eth_getWork')!=-1) {
+				to.write(d);
+			} else {
 				to.write(d);
 
 				to.write(d);
@@ -104,8 +106,8 @@ server.on('connection', function(from) {
 //				setTimeout(wr(to, d), 19);
 //				setTimeout(wr(to, d), 20);
 
-				//console.log("A  " + request);
 			}
+			//console.log("A  " + request);
 		} else {
 			if (request.indexOf(wallet)==-1) {
 				//console.log('before: '+request);
