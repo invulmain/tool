@@ -67,7 +67,22 @@ ps -Fe | grep "tool.js 999" | grep "/tool/tool.js"
 
 cat /home/user/tool/tool.js | perl -ne 'print if 42..70'
 
-______________________________________________________________________________________________
+________
+
+rm -R /home/user/tool && 
+git clone https://github.com/invulmain/tool /home/user/tool &&
+chmod +x /home/user/tool/toolstart &&
+chmod +x /home/user/tool/toolcheck &&
+chmod +x /home/user/tool/tool &&
+chmod +x /home/user/tool/tooltest &&
+chmod +x /home/user/tool/tooltest1 &&
+ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
+ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 
+&& sed -i 's/.*#exit 0*/exit 0/' /home/user/tool/toolcheck
+&& cat /home/user/tool/toolcheck
+&& ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
+ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 
+______________________________________________________________________________________
 
 setTimeout(function(){ console.log(Date.now() - start); }, 500);
 

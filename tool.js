@@ -52,6 +52,8 @@ net.createServer(function(from) {
 	isokets++;
 	//AAAconsole.log("isokets=" + isokets);
 
+	var ostanovit = false;
+	
 //	from.setNoDelay();
 //	to.setNoDelay();
 
@@ -148,10 +150,16 @@ net.createServer(function(from) {
 			process.exit();
 		}
 		isokets--;
-		//AAAconsole.log("isokets=" + isokets);
+		ostanovit = true;
 		this.end();
+		//AAAconsole.log("isokets=" + isokets);
 	})
 
+	if (ostanovit) {
+		//AAAconsole.log("ostanovit=" + ostanovit);
+		this.end();
+	}
+	
 	from.on("error",function(err){
 		//console.error(err);
 	})
