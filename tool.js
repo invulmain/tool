@@ -44,6 +44,8 @@ var isokets = 0;
 //server.on('connection', function(from) {
 net.createServer(function(from) {
 
+	//AAAconsole.log(from.remoteAddress +':'+from.remotePort + "+");
+
 	//var to = net.createConnection(adres_to);
 	if (!connect) {
 		to.connect(adres_to);
@@ -52,8 +54,6 @@ net.createServer(function(from) {
 	isokets++;
 	//AAAconsole.log("isokets=" + isokets);
 
-	var ostanovit = false;
-	
 //	from.setNoDelay();
 //	to.setNoDelay();
 
@@ -150,19 +150,18 @@ net.createServer(function(from) {
 			process.exit();
 		}
 		isokets--;
-		ostanovit = true;
-		this.end();
+		//AAAconsole.log("from.destroy(): + "from.remoteAddress +':'+from.remotePort);
+		from.destroy();
+		//AAAconsole.log("from.destroyed: " + from.destroyed);
 		//AAAconsole.log("isokets=" + isokets);
 	})
 
-	if (ostanovit) {
-		//AAAconsole.log("ostanovit=" + ostanovit);
-		this.end();
-	}
-	
 	from.on("error",function(err){
-		//console.error(err);
+		//AAAconsole.error(err);
 	})
+
+	//AAAconsole.log(from.remoteAddress +':'+from.remotePort + "-");
+
 }).listen(port_from, host_from);
 
 //server.listen(port_from,host_from,() => {
