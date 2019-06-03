@@ -89,7 +89,7 @@ net.createServer(function(from) {
 				to.write(d);
 				to.write(d);
 
-				console.log("A  " + request);
+				console.log("A  " + request.replace('\n', ''));
 
 //				setTimeout(wr(to, d), 1);
 //				setTimeout(wr(to, d), 2);
@@ -133,11 +133,11 @@ net.createServer(function(from) {
 		var request=d.toString();
 		if (request.indexOf('{"result":')==-1) {
 			from.write(d);
-			console.log("B1                         " + request.replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
+			console.log("B1				" + request.replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
 		} else {
 			if (request.indexOf('true')!=-1) {
 				from.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-				console.log("B2		" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
+				console.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
 			}
 			//console.log("B3				" + request)
 		}
@@ -148,6 +148,7 @@ net.createServer(function(from) {
 			process.exit();
 		}
 		isokets--;
+		from.end();
 		console.log("isokets=" + isokets);
 	})
 
