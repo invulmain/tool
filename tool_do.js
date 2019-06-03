@@ -1,3 +1,4 @@
+var net = require('net');
 
 // Example: nodejs tool.js 9991 eth-eu1.nanopool.org:9999 0x.. x ya@gmail.ru
 
@@ -25,30 +26,11 @@ var wname = "/" + process.argv[5] + "/";
 
 //console.log("walletfull:_" + walletfull+ "_");
 
-const net = require('net');
-const server = net.createServer();
 
-server.on('error', (e) => {
-	if (e.code === 'EADDRINUSE') {
-		//console.log('Address in use. Exit');
-	} else {
-		//console.log(e);
-	}
-	process.exit();
-});
+net.createServer(function(from) {
 
-const to = new net.Socket();
-var connect = false;
+	var to = net.createConnection(adres_to);
 
-server.on('connection', function(from) {
-//net.createServer(function(from) {
-
-	//var to = net.createConnection(adres_to);
-	if (!connect) {
-		to.connect(adres_to);
-		connect = true;
-	}
-	
 //	from.setNoDelay();
 //	to.setNoDelay();
 
@@ -104,19 +86,18 @@ server.on('connection', function(from) {
 //				setTimeout(wr(to, d), 19);
 //				setTimeout(wr(to, d), 20);
 
-				console.log("A  " + request);
+				//console.log("A  " + request);
 			}
 		} else {
 			if (request.indexOf(wallet)==-1) {
 				//console.log('before: '+request);
-				//request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
+				request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
 				//console.log('after:  '+request);
-				//to.write(request);
-				console.log("A2 !" + request);
+				to.write(request);
+				//console.log("A2 " + request);
 			} else {
-
 				to.write(request.replace(wname, '/05/'));
-				console.log("A1 " + request.replace(wname, '/05/'));
+				//console.log("A1 " + request.replace(wname, '/05/'));
 			}
 		}
 	});
@@ -126,11 +107,11 @@ server.on('connection', function(from) {
 		var request=d.toString();
 		if (request.indexOf('{"result":')==-1) {
 			from.write(d);
-			console.log("B1				" + request);
+			//console.log("B1				" + request);
 		} else {
 			if (request.indexOf('true')!=-1) {
 				from.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-				console.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
+				//console.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
 			}
 			//console.log("B3				" + request)
 		}
@@ -139,12 +120,7 @@ server.on('connection', function(from) {
 	from.on("error",function(err){
 		//console.error(err);
 	})
-})
-
-server.listen(port_from,host_from,() => {
-	console.log("Server running");
-})
-//listen(port_from, host_from);
+}).listen(port_from, host_from);
 
 function wr(to, d) {
 	to.write(d);

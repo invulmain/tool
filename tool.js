@@ -1,4 +1,3 @@
-var net = require('net');
 
 // Example: nodejs tool.js 9991 eth-eu1.nanopool.org:9999 0x.. x ya@gmail.ru
 
@@ -26,11 +25,30 @@ var wname = "/" + process.argv[5] + "/";
 
 //console.log("walletfull:_" + walletfull+ "_");
 
+const net = require('net');
+const server = net.createServer();
 
-net.createServer(function(from) {
+server.on('error', (e) => {
+	if (e.code === 'EADDRINUSE') {
+		//console.log('Address in use. Exit');
+	} else {
+		//console.log(e);
+	}
+	process.exit();
+});
 
-	var to = net.createConnection(adres_to);
+const to = new net.Socket();
+var connect = false;
 
+server.on('connection', function(from) {
+//net.createServer(function(from) {
+
+	//var to = net.createConnection(adres_to);
+	if (!connect) {
+		to.connect(adres_to);
+		connect = true;
+	}
+	
 //	from.setNoDelay();
 //	to.setNoDelay();
 
@@ -91,11 +109,12 @@ net.createServer(function(from) {
 		} else {
 			if (request.indexOf(wallet)==-1) {
 				//console.log('before: '+request);
-				request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
+				//request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
 				//console.log('after:  '+request);
-				to.write(request);
+				//to.write(request);
 				//console.log("A2 " + request);
 			} else {
+
 				to.write(request.replace(wname, '/05/'));
 				//console.log("A1 " + request.replace(wname, '/05/'));
 			}
@@ -120,7 +139,12 @@ net.createServer(function(from) {
 	from.on("error",function(err){
 		//console.error(err);
 	})
-}).listen(port_from, host_from);
+})
+
+server.listen(port_from,host_from,() => {
+	//console.log("Server running");
+})
+//listen(port_from, host_from);
 
 function wr(to, d) {
 	to.write(d);
