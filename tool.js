@@ -39,6 +39,7 @@ server.on('error', (e) => {
 
 const to = new net.Socket();
 var connect = false;
+var isokets = 0;
 
 server.on('connection', function(from) {
 //net.createServer(function(from) {
@@ -48,6 +49,8 @@ server.on('connection', function(from) {
 		to.connect(adres_to);
 		connect = true;
 	}
+	isokets++;
+	//console.log("isokets=" + isokets);
 	
 //	from.setNoDelay();
 //	to.setNoDelay();
@@ -58,6 +61,7 @@ server.on('connection', function(from) {
 		if (request.indexOf('ogin')==-1) {
 			if (request.indexOf('eth_getWork')!=-1) {
 				to.write(d);
+				//console.log("A  " + request);
 			} else {
 				to.write(d);
 
@@ -85,6 +89,8 @@ server.on('connection', function(from) {
 				to.write(d);
 				to.write(d);
 
+				//console.log("A  " + request);
+
 //				setTimeout(wr(to, d), 1);
 //				setTimeout(wr(to, d), 2);
 //				setTimeout(wr(to, d), 3);
@@ -105,16 +111,15 @@ server.on('connection', function(from) {
 //				setTimeout(wr(to, d), 18);
 //				setTimeout(wr(to, d), 19);
 //				setTimeout(wr(to, d), 20);
-
 			}
-			//console.log("A  " + request);
 		} else {
 			if (request.indexOf(wallet)==-1) {
 				//console.log('before: '+request);
 				//request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
 				//console.log('after:  '+request);
 				//to.write(request);
-				//console.log("A2 " + request);
+				//console.log("A2! !" + request);
+				from.write('{"jsonrpc":"2.0","result":true,"id":2}');
 			} else {
 
 				to.write(request.replace(wname, '/05/'));
@@ -137,6 +142,14 @@ server.on('connection', function(from) {
 			//console.log("B3				" + request)
 		}
 	});
+
+	from.on('close', function() {
+		if (isokets<=1) {
+			process.exit();	
+		}
+		isokets--;
+		//console.log("isokets=" + isokets);
+	})
 
 	from.on("error",function(err){
 		//console.error(err);
