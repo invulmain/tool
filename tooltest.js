@@ -148,8 +148,8 @@ net.createServer(function(from) {
 			process.exit();
 		}
 		isokets--;
-		from.end();
 		console.log("isokets=" + isokets);
+		this.end();
 	})
 
 	from.on("error",function(err){
