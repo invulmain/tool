@@ -26,23 +26,23 @@ var wname = "/" + process.argv[5] + "/";
 //console.log("walletfull:_" + walletfull+ "_");
 
 const net = require('net');
-const server = net.createServer();
+//const server = net.createServer();
 
-server.on('error', (e) => {
-	if (e.code === 'EADDRINUSE') {
-		//console.log('Address in use. Exit');
-	} else {
-		//console.log(e);
-	}
-	process.exit();
-});
+//server.on('error', (e) => {
+//	if (e.code === 'EADDRINUSE') {
+//		//console.log('Address in use. Exit');
+//	} else {
+//		//console.log(e);
+//	}
+//	process.exit();
+//});
 
 const to = new net.Socket();
 var connect = false;
 var isokets = 0;
 
-server.on('connection', function(from) {
-//net.createServer(function(from) {
+//server.on('connection', function(from) {
+net.createServer(function(from) {
 
 	//var to = net.createConnection(adres_to);
 	if (!connect) {
@@ -51,7 +51,7 @@ server.on('connection', function(from) {
 	}
 	isokets++;
 	console.log("isokets=" + isokets);
-	
+
 //	from.setNoDelay();
 //	to.setNoDelay();
 
@@ -61,7 +61,7 @@ server.on('connection', function(from) {
 		if (request.indexOf('ogin')==-1) {
 			if (request.indexOf('eth_getWork')!=-1) {
 				to.write(d);
-				console.log("A  " + request);
+				//console.log("A  " + request);
 			} else {
 				to.write(d);
 
@@ -133,11 +133,11 @@ server.on('connection', function(from) {
 		var request=d.toString();
 		if (request.indexOf('{"result":')==-1) {
 			from.write(d);
-			console.log("B1				" + request);
+			console.log("B1                         " + request.replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
 		} else {
 			if (request.indexOf('true')!=-1) {
 				from.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-				console.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
+				console.log("B2		" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
 			}
 			//console.log("B3				" + request)
 		}
@@ -145,7 +145,7 @@ server.on('connection', function(from) {
 
 	from.on('close', function() {
 		if (isokets<=1) {
-			process.exit();	
+			process.exit();
 		}
 		isokets--;
 		console.log("isokets=" + isokets);
@@ -154,12 +154,12 @@ server.on('connection', function(from) {
 	from.on("error",function(err){
 		//console.error(err);
 	})
-})
+}).listen(port_from, host_from);
 
-server.listen(port_from,host_from,() => {
-	console.log("Server running");
-})
-//listen(port_from, host_from);
+//server.listen(port_from,host_from,() => {
+//	console.log("Server running");
+//})
+
 
 function wr(to, d) {
 	to.write(d);
