@@ -24,7 +24,6 @@ var wname = "/" + process.argv[5] + "/";
 
 const net = require('net');
 const to = new net.Socket();
-//to.setNoDelay();
 var connect = false;
 var isokets = 0;
 var predtekfrom, tekfrom;
@@ -40,8 +39,6 @@ net.createServer(function(from) {
 	predtekfrom = tekfrom;
 	tekfrom = from;
 
-//	from.setNoDelay();
-	
 	//var to = net.createConnection(to_port, to_host);
 	if (!connect) {
 		to.connect(to_port, to_host);
