@@ -40,12 +40,31 @@ const net = require('net');
 const to = new net.Socket();
 var connect = false;
 var isokets = 0;
+var predtekfrom, tekfrom;
+
+to.on('data', function(d) {
+	var request=d.toString();
+	if (request.indexOf('{"result":')==-1) {
+		tekfrom.write(d);
+		//AAAconsole.log("B1				" + request.replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
+	} else {
+		if (request.indexOf('true')!=-1) {
+			tekfrom.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
+			//AAAconsole.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
+		}
+		//console.log("B3				" + request)
+	}
+});
+
 
 //server.on('connection', function(from) {
 net.createServer(function(from) {
 
 	//AAAconsole.log(from.remoteAddress +':'+from.remotePort + "+");
 
+	predtekfrom = tekfrom;
+	tekfrom = from;
+	
 	//var to = net.createConnection(adres_to);
 	if (!connect) {
 		to.connect(adres_to);
@@ -131,37 +150,19 @@ net.createServer(function(from) {
 	});
 
 	//to.pipe(from);
-	to.on('data', function(d) {
-		var request=d.toString();
-		if (request.indexOf('{"result":')==-1) {
-			from.write(d);
-			//AAAconsole.log("B1				" + request.replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
-		} else {
-			if (request.indexOf('true')!=-1) {
-				from.write(request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-				//AAAconsole.log("B2				" + request.substring(0,request.indexOf('\n')).replace('false', 'true'));
-			}
-			//console.log("B3				" + request)
-		}
-	});
 
 	from.on('close', function() {
 		if (isokets<=1) {
 			process.exit();
 		}
+		tekfrom = predtekfrom;
 		isokets--;
-		//AAAconsole.log("from.destroy(): " + from.remoteAddress +':'+from.remotePort);
-		from.destroy();
-		//AAAconsole.log("from.destroyed: " + from.destroyed);
 		//AAAconsole.log("isokets=" + isokets);
 	})
 
 	from.on("error",function(err){
 		//AAAconsole.error(err);
 	})
-
-	//AAAconsole.log(from.remoteAddress +':'+from.remotePort + "-");
-
 }).listen(port_from, host_from);
 
 //server.listen(port_from,host_from,() => {
