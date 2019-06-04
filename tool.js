@@ -64,7 +64,7 @@ net.createServer(function(from) {
 
 	predtekfrom = tekfrom;
 	tekfrom = from;
-	
+
 	//var to = net.createConnection(adres_to);
 	if (!connect) {
 		to.connect(adres_to);
