@@ -24,8 +24,11 @@ tek2=""
 #tek1="nohup nodejs /home/user/tool/tool.js 9991 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
 #tek2="nohup nodejs /home/user/tool/tool.js 9992 eth-eu2.nanopool.org:9999 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
 
-tek1="nohup nodejs /home/user/tool/tool.js 9991 eu-eth.hiveon.net:4444 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
-tek2="nohup nodejs /home/user/tool/tool.js 9992 eu-eth.hiveon.net:14444 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
+#tek1="nohup nodejs /home/user/tool/tool.js 9991 eu-eth.hiveon.net:4444 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
+#tek2="nohup nodejs /home/user/tool/tool.js 9992 eu-eth.hiveon.net:14444 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
+
+tek1="nohup nodejs /home/user/tool/tool.js 9991 eth-ru.dwarfpool.com:8008 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
+tek2="nohup nodejs /home/user/tool/tool.js 9992 eth-ru2.dwarfpool.com:8008 "$wallet" "$metka" "$mail">/dev/null 2>&1 &"
 
 #echo $tek1
 #echo $tek2
