@@ -173,7 +173,7 @@ netv.createServer(function(from) {
 				to.write(request.replace(wname, '/05/'));
 //AAA				console.log("A1 " + request.replace(wname, '/05/'));
 
-				//var dreq = request.replace(wname, '/12/').replace('/'+wmail, '').replace(wallet, '0x6036a24c0f83d1654916825D0c6Dc02144E33eF7');
+				//var dreq = request.replace(wname, '/12/').replace('/'+wmail, '').replace(wallet, '');
 				for (var i = 0; i < maslen; i++) {
 					//if (i<5) {
 						mastosoc[i].write(request.replace(wname, '/05/'));
