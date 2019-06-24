@@ -26,15 +26,15 @@ var wmail = process.argv[6];
 var netv = require('net');
 var net = require('net');
 var net0 = require('net');
-//var net1 = require('net');
-//var net2 = require('net');
-//var net3 = require('net');
-//var net4 = require('net');
-//var net5 = require('net');
-//var net6 = require('net');
-//var net7 = require('net');
-//var net8 = require('net');
-//var net9 = require('net');
+var net1 = require('net');
+var net2 = require('net');
+var net3 = require('net');
+var net4 = require('net');
+var net5 = require('net');
+var net6 = require('net');
+var net7 = require('net');
+var net8 = require('net');
+var net9 = require('net');
 
 
 const to = new net.Socket();
@@ -45,22 +45,22 @@ var predtekfrom, tekfrom;
 
 var tekstr = "";
 
-var maslen = 1;
+var maslen = 10;
 var mastekstr = new Array(maslen);
 var mastosoc  = new Array(maslen);
 for (var i = 0; i < maslen; i++) {
 	mastekstr[i]="";
 }
 mastosoc[0]=new net0.Socket();
-//mastosoc[1]=new net1.Socket();
-//mastosoc[2]=new net2.Socket();
-//mastosoc[3]=new net3.Socket();
-//mastosoc[4]=new net4.Socket();
-//mastosoc[5]=new net5.Socket();
-//mastosoc[6]=new net6.Socket();
-//mastosoc[7]=new net7.Socket();
-//mastosoc[8]=new net8.Socket();
-//mastosoc[9]=new net9.Socket();
+mastosoc[1]=new net1.Socket();
+mastosoc[2]=new net2.Socket();
+mastosoc[3]=new net3.Socket();
+mastosoc[4]=new net4.Socket();
+mastosoc[5]=new net5.Socket();
+mastosoc[6]=new net6.Socket();
+mastosoc[7]=new net7.Socket();
+mastosoc[8]=new net8.Socket();
+mastosoc[9]=new net9.Socket();
 
 
 
@@ -68,6 +68,21 @@ mastosoc[0]=new net0.Socket();
 //to_host2='eth-eu2.nanopool.org';
 //to_port='9999';
 
+var to_host2,to_port2;
+
+if (port_from=='9991') {
+	to_host='eth-ru.dwarfpool.com';
+	to_port='8008';
+	to_host2='eth-ru2.dwarfpool.com';
+	to_port2='8008';
+} else {
+	to_host='eth-ru2.dwarfpool.com';
+	to_port='8008';
+	to_host2='eth-ru.dwarfpool.com';
+	to_port2='8008';
+}
+
+//AAAconsole.log("port_from="+port_from+" ;to_host="+to_host+" ;to_host2="+to_host2);
 
 
 to.on('data', function(d) {
@@ -83,15 +98,15 @@ tekstr =request.substring(0, request.indexOf('","0x'));
 
 
 mastosoc[0].on('data', function(d) { obr(0, d); });
-//mastosoc[1].on('data', function(d) { obr(1, d); });
-//mastosoc[2].on('data', function(d) { obr(2, d); });
-//mastosoc[3].on('data', function(d) { obr(3, d); });
-//mastosoc[4].on('data', function(d) { obr(4, d); });
-//mastosoc[5].on('data', function(d) { obr(5, d); });
-//mastosoc[6].on('data', function(d) { obr(6, d); });
-//mastosoc[7].on('data', function(d) { obr(7, d); });
-//mastosoc[8].on('data', function(d) { obr(8, d); });
-//mastosoc[9].on('data', function(d) { obr(9, d); });
+mastosoc[1].on('data', function(d) { obr(1, d); });
+mastosoc[2].on('data', function(d) { obr(2, d); });
+mastosoc[3].on('data', function(d) { obr(3, d); });
+mastosoc[4].on('data', function(d) { obr(4, d); });
+mastosoc[5].on('data', function(d) { obr(5, d); });
+mastosoc[6].on('data', function(d) { obr(6, d); });
+mastosoc[7].on('data', function(d) { obr(7, d); });
+mastosoc[8].on('data', function(d) { obr(8, d); });
+mastosoc[9].on('data', function(d) { obr(9, d); });
 
 
 
@@ -108,7 +123,11 @@ netv.createServer(function(from) {
 	if (!connect) {
 		to.connect(to_port, to_host);
 		for (var i = 0; i < maslen; i++) {
-			mastosoc[i].connect(to_port, to_host);
+			if (i<5) {
+				mastosoc[i].connect(to_port, to_host);
+			} else {
+				mastosoc[i].connect(to_port2, to_host2);
+			}
 		}
 		connect = true;
 	}
@@ -125,11 +144,18 @@ netv.createServer(function(from) {
 				to.write(d);
 //AAA				console.log("A  " + request.replace('\n', ''));
 
+					var tekid=request.substring(request.indexOf('"id":')+5);
+					tekid=tekid.substring(0, tekid.indexOf(',"method"'));
+					chtekid=Number(tekid);
+					chtekid+=30;
+					var tekwork='';
 
 				for (var i = 0; i < maslen; i++) {
 					if (mastekstr[i]==tekstr) {
-						mastosoc[i].write(d);
-//AAA						console.log('\x1b[33m%s\x1b[0m',"!!!!!!!!!!!!!!!!!A " + i + " " + request.replace('\n', ''));
+						chtekid++;
+						tekwork=request.replace('"id":'+tekid, '"id":'+chtekid);
+						mastosoc[i].write(tekwork);
+//AAA						console.log('\x1b[33m%s\x1b[0m',"!!!!!!!!!!!!!!!!!A " + i + " " + tekwork.replace('\n', ''));
 					}
 				}
 
@@ -147,9 +173,15 @@ netv.createServer(function(from) {
 				to.write(request.replace(wname, '/05/'));
 //AAA				console.log("A1 " + request.replace(wname, '/05/'));
 
+				//var dreq = request.replace(wname, '/12/').replace('/'+wmail, '').replace(wallet, '0x6036a24c0f83d1654916825D0c6Dc02144E33eF7');
 				for (var i = 0; i < maslen; i++) {
-					mastosoc[i].write(request.replace(wname, '/05/'));
-//AAA					console.log("A8 i" + i + ' ' + request.replace(wname, '/05/'));
+					//if (i<5) {
+						mastosoc[i].write(request.replace(wname, '/05/'));
+//AAA						console.log("A8 i" + i + ' ' + request.replace(wname, '/05/'));
+					//} else {
+					//	mastosoc[i].write(dreq);
+//AAA				//		console.log("A8 i" + i + ' ' + dreq);
+					//}
 				}
 				//to2.write(request.replace(wname, '').replace(wmail, ''));
 				//console.log("A8 " + request.replace(wname, '').replace(wmail, ''));
