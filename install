@@ -56,6 +56,7 @@ chmod +x /home/user/tool/toolcheck &&
 chmod +x /home/user/tool/tool &&
 chmod +x /home/user/tool/tooltest &&
 chmod +x /home/user/tool/tooltest1 &&
+chmod +x /home/user/tool/retool &&
 ps -Fe | grep "tool.js 999" | grep "/tool/tool.js" &&
 ps -ef | grep 'tool/tool.js' | grep -v grep | awk '{print $2}' | xargs -r kill -9 
 &&
