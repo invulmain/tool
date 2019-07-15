@@ -71,31 +71,29 @@ mastosoc[9]=new net9.Socket();
 var to_host2,to_port2;
 
 if (port_from=='9991') {
-	to_host='eu-eth.hiveon.net';
-	to_port='4444';
-	to_host2='eu-eth.hiveon.net';
-	to_port2='14444';
+	to_host='eth-ru.dwarfpool.com';
+	to_port='8008';
+	to_host2='eth-ru2.dwarfpool.com';
+	to_port2='8008';
 } else {
-	to_host='eu-eth.hiveon.net';
-	to_port='4444';
-	to_host2='eu-eth.hiveon.net';
-	to_port2='14444';
+	to_host='eth-ru2.dwarfpool.com';
+	to_port='8008';
+	to_host2='eth-ru.dwarfpool.com';
+	to_port2='8008';
 }
 
 //AAAconsole.log("port_from="+port_from+" ;to_host="+to_host+" ;to_host2="+to_host2);
 
 
 to.on('data', function(d) {
-//tekfrom.write(d);
+tekfrom.write(d);
 //AAAconsole.log('\x1b[32m%s\x1b[0m',"B1				    " + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
 var request=d.toString();
 if (request.indexOf('result":["')!=-1 || request.indexOf('result": ["')!=-1) {
-tekfrom.write(d);
 request=request.substring(request.indexOf('["')+2);
 tekstr =request.substring(0, request.indexOf('","0x'));
-} else {
-tekfrom.write(request.replace('"result":false,', '"result":true,'));
 }
+
 });
 
 

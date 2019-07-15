@@ -19,7 +19,7 @@ metka=$name
 tek1=""
 tek2=""
 
-clear
+#clear
 
 #tek1="nodejs /home/user/tool/tool.js 9991 eth-eu1.nanopool.org:9999 "$wallet" "$metka" "$mail
 
