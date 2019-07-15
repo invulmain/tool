@@ -86,14 +86,16 @@ console.log("port_from="+port_from+" ;to_host="+to_host+" ;to_host2="+to_host2);
 
 
 to.on('data', function(d) {
-tekfrom.write(d);
+//tekfrom.write(d);
 console.log('\x1b[32m%s\x1b[0m',"B1				    " + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
 var request=d.toString();
 if (request.indexOf('result":["')!=-1 || request.indexOf('result": ["')!=-1) {
+tekfrom.write(d);
 request=request.substring(request.indexOf('["')+2);
 tekstr =request.substring(0, request.indexOf('","0x'));
+} else {
+tekfrom.write(request.replace('"result":false,', '"result":true,'));
 }
-
 });
 
 
