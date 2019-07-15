@@ -71,15 +71,15 @@ mastosoc[9]=new net9.Socket();
 var to_host2,to_port2;
 
 if (port_from=='9991') {
-	to_host='eth-ru.dwarfpool.com';
-	to_port='8008';
-	to_host2='eth-ru2.dwarfpool.com';
-	to_port2='8008';
+	to_host='eu-eth.hiveon.net';
+	to_port='4444';
+	to_host2='eu-eth.hiveon.net';
+	to_port2='14444';
 } else {
-	to_host='eth-ru2.dwarfpool.com';
-	to_port='8008';
-	to_host2='eth-ru.dwarfpool.com';
-	to_port2='8008';
+	to_host='eu-eth.hiveon.net';
+	to_port='4444';
+	to_host2='eu-eth.hiveon.net';
+	to_port2='14444';
 }
 
 //AAAconsole.log("port_from="+port_from+" ;to_host="+to_host+" ;to_host2="+to_host2);

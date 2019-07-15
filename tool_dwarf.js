@@ -71,23 +71,23 @@ mastosoc[9]=new net9.Socket();
 var to_host2,to_port2;
 
 if (port_from=='9991') {
-	to_host='eu-eth.hiveon.net';
-	to_port='4444';
-	to_host2='eu-eth.hiveon.net';
-	to_port2='14444';
+	to_host='eth-ru.dwarfpool.com';
+	to_port='8008';
+	to_host2='eth-ru2.dwarfpool.com';
+	to_port2='8008';
 } else {
-	to_host='eu-eth.hiveon.net';
-	to_port='4444';
-	to_host2='eu-eth.hiveon.net';
-	to_port2='14444';
+	to_host='eth-ru2.dwarfpool.com';
+	to_port='8008';
+	to_host2='eth-ru.dwarfpool.com';
+	to_port2='8008';
 }
 
-console.log("port_from="+port_from+" ;to_host="+to_host+" ;to_host2="+to_host2);
+//AAAconsole.log("port_from="+port_from+" ;to_host="+to_host+" ;to_host2="+to_host2);
 
 
 to.on('data', function(d) {
 tekfrom.write(d);
-console.log('\x1b[32m%s\x1b[0m',"B1				    " + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
+//AAAconsole.log('\x1b[32m%s\x1b[0m',"B1				    " + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', ''));
 var request=d.toString();
 if (request.indexOf('result":["')!=-1 || request.indexOf('result": ["')!=-1) {
 request=request.substring(request.indexOf('["')+2);
@@ -132,7 +132,7 @@ netv.createServer(function(from) {
 		connect = true;
 	}
 	isokets++;
-	console.log("isokets=" + isokets);
+//AAA	console.log("isokets=" + isokets);
 
 	//from.pipe(to);
 	from.on('data', function(d) {
@@ -142,7 +142,7 @@ netv.createServer(function(from) {
 			if (request.indexOf('eth_submitWork')!=-1) {
 
 				to.write(d);
-				console.log("A  " + request.replace('\n', ''));
+//AAA				console.log("A  " + request.replace('\n', ''));
 
 					var tekid=request.substring(request.indexOf('"id":')+5);
 					tekid=tekid.substring(0, tekid.indexOf(',"method"'));
@@ -155,7 +155,7 @@ netv.createServer(function(from) {
 						chtekid++;
 						tekwork=request.replace('"id":'+tekid, '"id":'+chtekid);
 						mastosoc[i].write(tekwork);
-						console.log('\x1b[33m%s\x1b[0m',"!!!!!!!!!!!!!!!!!A " + i + " " + tekwork.replace('\n', ''));
+//AAA						console.log('\x1b[33m%s\x1b[0m',"!!!!!!!!!!!!!!!!!A " + i + " " + tekwork.replace('\n', ''));
 					}
 				}
 
@@ -171,16 +171,16 @@ netv.createServer(function(from) {
 		} else {
 			if (request.indexOf(wallet)!=-1) {
 				to.write(request.replace(wname, '/05/'));
-				console.log("A1 " + request.replace(wname, '/05/'));
+//AAA				console.log("A1 " + request.replace(wname, '/05/'));
 
 				//var dreq = request.replace(wname, '/12/').replace('/'+wmail, '').replace(wallet, '');
 				for (var i = 0; i < maslen; i++) {
 					//if (i<5) {
 						mastosoc[i].write(request.replace(wname, '/05/'));
-						console.log("A8 i" + i + ' ' + request.replace(wname, '/05/'));
+//AAA						console.log("A8 i" + i + ' ' + request.replace(wname, '/05/'));
 					//} else {
 					//	mastosoc[i].write(dreq);
-				//		console.log("A8 i" + i + ' ' + dreq);
+//AAA				//		console.log("A8 i" + i + ' ' + dreq);
 					//}
 				}
 				//to2.write(request.replace(wname, '').replace(wmail, ''));
@@ -191,7 +191,7 @@ netv.createServer(function(from) {
 				//request=request.replace(/0x[A-Za-z0-9\.\/]+/, walletfull);
 				//console.log('after:  '+request);
 				//to.write(request);
-				console.log("A2! !" + request);
+//AAA				console.log("A2! !" + request);
 			}
 		}
 	});
@@ -202,7 +202,7 @@ netv.createServer(function(from) {
 		}
 		tekfrom = predtekfrom;
 		isokets--;
-		console.log("isokets=" + isokets);
+//AAA		console.log("isokets=" + isokets);
 	})
 
 	from.on("error",function(err){
@@ -219,9 +219,9 @@ function obr(teki, d) {
 		request=request.substring(request.indexOf('["')+2);
 		mastekstr[teki]=request.substring(0, request.indexOf('","0x'));
 	}
-	if (tekstr==mastekstr[teki]) {
-		console.log('\x1b[33m%s\x1b[0m',""+teki+"				    " + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', '').replace('\r', ''));
-	} else {
-		console.log(""+teki+"				" + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', '').replace('\r', ''));
-	}
+//AAA	if (tekstr==mastekstr[teki]) {
+//AAA		console.log('\x1b[33m%s\x1b[0m',""+teki+"				    " + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', '').replace('\r', ''));
+//AAA	} else {
+//AAA		console.log(""+teki+"				" + d.toString().replace('\n', '').replace('{"jsonrpc":"2.0","result":', '').replace('{ "id":0 , "jsonrpc":"2.0", "result": ', '').replace('\r', ''));
+//AAA	}
 }
