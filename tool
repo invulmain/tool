@@ -7,7 +7,8 @@ fi
 source $WALLET_CONF
 wallet=`expr "$EPOOLS_TPL" : '.*\(WALLET: 0x[0-9A-Za-z]*[0-9A-Za-z]/\)'`
 wallet=${wallet:8:-1}
-name=`expr "$EPOOLS_TPL" : '.*\(/[0-9]*[0-9]/\)'`
+#name=`expr "$EPOOLS_TPL" : '.*\(/[0-9]*[0-9]/\)'`
+name=`expr "$EPOOLS_TPL" : '.*\(/[0-9A-Za-z]*[0-9A-Za-z]/\)'`
 name=${name:1:-1}
 mail=`expr "$EPOOLS_TPL" : '.*\(/[0-9A-Za-z.@_]*[0-9A-Za-z.@_],\)'`
 mail=${mail:1:-1}
